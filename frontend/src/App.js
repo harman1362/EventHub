@@ -11,17 +11,27 @@ import RootLayout from './layout/RootLayout';
 import Home from './pages/Home';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+// import your icons
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-    <Route path='/' element={<RootLayout />}>
-      <Route index element={<Home />}></Route>
-      <Route path='about' element={<About />}></Route>
-    </Route>
+      <Route path='/' element={<RootLayout />}>
+        <Route index element={<Home />}></Route>
+        <Route path='about' element={<About />}></Route>
+        <Route path='login' element={<Login />}></Route>
+        <Route path='register' element={<Register />}></Route>
+      </Route>
       <Route path='*' element={<NotFound />}></Route>
-    
-</>
+
+    </>
   )
   // {
   //   path: "/",
@@ -44,3 +54,4 @@ function App() {
 }
 
 export default App;
+library.add(fab, fas, far)
