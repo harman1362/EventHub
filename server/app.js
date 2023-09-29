@@ -1,6 +1,5 @@
 const express = require('express');
 
-const eventModel = require('./db.js');
 
 const bodyParser = require('body-parser');
 
