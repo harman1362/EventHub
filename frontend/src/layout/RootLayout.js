@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import "./RootLayout.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const RootLayout = () => {
   return (
@@ -84,7 +85,7 @@ const RootLayout = () => {
 
         <aside
           id="sidebar"
-          class="bg-gray-800 text-gray-100 md:w-64 w-3/4 space-y-6 pt-6 px-0 fixed inset-y-0 left-0 transform md:fixed md:translate-x-0 transition duration-200 ease-in-out  md:flex md:flex-col md:justify-between overflow-y-auto"
+          class="bg-gray-800  text-gray-100 md:w-64 w-3/4 space-y-6 pt-6 px-0 fixed inset-y-0 left-0 transform md:fixed md:translate-x-0 transition duration-200 ease-in-out  md:flex md:flex-col md:justify-between overflow-y-auto"
           data-dev-hint="sidebar; px-0 for frameless; px-2 for visually inset the navigation"
         >
           <div
@@ -114,7 +115,7 @@ const RootLayout = () => {
             </NavLink>
 
 
-            <nav data-dev-hint="main navigation">
+            <nav data-dev-hint="main navigation" className="">
               <NavLink
                 to="/"
                 className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
@@ -125,9 +126,43 @@ const RootLayout = () => {
                 className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
                 About
               </NavLink>
-
+              <NavLink
+                to="Login"
+                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                Login
+              </NavLink>
+              <NavLink
+                to="Register"
+                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                Register
+              </NavLink>
             </nav>
+            {/* <div className="absolute w-full bottom-2">
+              <hr />
+              <nav data-dev-hint="main navigation" className="flex flex-row-reverse px-4 py-2">
+                <FontAwesomeIcon icon="fa-solid fa-power-off" className="cursor-pointer" />
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown button
+                </button>
+                <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                  <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                    <li>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div> */}
           </div>
+
         </aside>
 
         <main id="content" class="flex-1 md:ml-[30%] lg:ml-[20%] p-12">
