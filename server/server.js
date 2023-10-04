@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const connectToDB = require('./config/dbConfig');
 const usersController = require('./controllers/userController');
+const requireAuth = require('./middleware/requireAuth');
 
  // app using express
 const app = express();
@@ -37,6 +38,9 @@ connectToDB();
 app.post('/signup', usersController.signup);
 app.post('/login', usersController.login);
 app.get('/logout', usersController.logout);
-app.listen(2300, ()=> {
+
+app.get('/check-auth', requireAuth,usersController.checkAuth);
+
+app.listen(process.env.PORT, ()=> {
     console.log("App is running at port 2300!!")
 });
