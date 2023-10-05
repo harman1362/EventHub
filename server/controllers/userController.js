@@ -39,22 +39,21 @@ async function login(req, res){
         return res.sendStatus(401); 
 
 
-        // to be added later 
+    // to be added later 
 
-    // // create jwt token 
-    // // expiration time is 30 days from current time
-    // const exp = Date.now() + 1000 * 60 * 60 *24 *30;
-    // const token = jwt.sign({ sub: user._id, exp }, process.env.SECRET);
+    // create jwt token 
+    // expiration time is 30 days from current time
+    const exp = Date.now() + 1000 * 60 * 60 *24 *30;
+    const token = jwt.sign({ sub: user._id, exp }, process.env.SECRET);
 
-    // // set cookie with the token, check cookie npm option for more details 
-    // res.cookie('Authorization' , token,  {
-    //     expires: new Date(exp),
-    //     httpOnly: true,
-    //     sameSite: 'lax',
-    //     secure:  process.env.NODE_ENV === 'production'
-    // })
+    // set cookie with the token, check cookie npm option for more details 
+    res.cookie('Authorization' , token,  {
+        expires: new Date(exp),
+        httpOnly: true,
+        sameSite: 'lax',
+        secure:  process.env.NODE_ENV === 'production'
+    })
     // send the created jwt token
-
 
     res.sendStatus(200);
     } catch (error) {
@@ -66,7 +65,7 @@ async function login(req, res){
 };
 function logout(req, res){
     try {
-        // res.clearCookie("Authorization");
+        res.clearCookie("Authorization");
         res.sendStatus(200);
     } catch (error) {
         console.log(error);
