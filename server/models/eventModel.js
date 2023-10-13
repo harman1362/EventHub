@@ -8,7 +8,11 @@ const eventSchema = mongoose.Schema({
     isPaid : Boolean,
     category : String,
     attendeeCount : Number,
-    isLimited : Boolean
+    isLimited : Boolean,
+    organizer:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'user',
+      }
 });
 
 
