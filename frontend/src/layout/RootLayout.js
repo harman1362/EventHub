@@ -127,6 +127,11 @@ const RootLayout = () => {
                 About
               </NavLink>
               <NavLink
+                to="Events"
+                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                Events
+              </NavLink>
+              <NavLink
                 to="Login"
                 className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
                 Login
