@@ -141,6 +141,11 @@ const RootLayout = () => {
                 className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
                 Register
               </NavLink>
+              <NavLink
+                to="admin"
+                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                Admin
+              </NavLink>
             </nav>
             {/* <div className="absolute w-full bottom-2">
               <hr />
