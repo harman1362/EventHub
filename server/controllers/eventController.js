@@ -86,7 +86,7 @@ const createEvent = async (req, res) => {
   
       // Update the event with a specific id
       const updateResult = await Event.findOneAndUpdate(
-        { _id: eventId },
+        { _id: eventId , organizer: req.user._id },
         {
           eventName: eventName,
           location: location,
@@ -123,7 +123,7 @@ const createEvent = async (req, res) => {
     //   needed to be checked if the user logged in is creator of event or not
 
       // Delete the event with the specific id
-      const deletionResult = await Event.deleteOne({ _id: eventId});
+      const deletionResult = await Event.deleteOne({ _id: eventId, organizer: req.user._id});
   
       if (deletionResult.deletedCount === 1) {
         // Event was successfully deleted
@@ -139,4 +139,4 @@ const createEvent = async (req, res) => {
   };
   
 
-module.exports  = {fetchEvent , createEvent ,fetchEventById ,updateEvent };
+module.exports  = {fetchEvent , createEvent ,fetchEventById ,updateEvent ,deleteEvent };
