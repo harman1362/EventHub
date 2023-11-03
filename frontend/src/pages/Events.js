@@ -1,6 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import EventCard from './EventCard';
-import EventRegister from './EventRegister';
 import { NavLink } from 'react-router-dom';
 
 
@@ -18,7 +16,7 @@ const Events = () => {
                 <NavLink
                     to="EventRegister"
                     className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
-                    Home
+                    Add new event
                 </NavLink>
                 <div className="container px-5 py-6 mx-auto">
                     <div className="flex flex-wrap -m-4">
