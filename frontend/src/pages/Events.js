@@ -1,44 +1,42 @@
 import EventCard from './EventCard';
 import { NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './EventCard.css'
 
 const Events = () => {
 
-    // const [data, setData] = useState(null);
-    // const [loading, setLoading] = useState(true);
+    const [events, setEvents] = useState([]);
 
-    //     useEffect(() => {
-    //         // Use the axios.get method inside the useEffect to fetch data
-    //         axios.get('https://example.com/api/data')
-    //             .then((response) => {
-    //                 // Update the state with the fetched data
-    //                 setData(response.data);
-    //                 setLoading(false); // Set loading to false once data is received
-    //             })
-    //             .catch((error) => {
-    //                 console.error('Error fetching data:', error);
-    //                 setLoading(false); // Set loading to false in case of an error
-    //             });
-    //     }, []); // The empty dependency array [] ensures that this effect runs once when the component mounts
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const response = await axios.get('http://localhost:2300/events');
+                setEvents(response.data.events);
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            }
+        };
 
-
-    // }
+        fetchEvents();
+    }, []);
 
     return (
         <>
             <section className="text-gray-600 body-font">
                 <NavLink
                     to="EventRegister"
-                    className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                    className="custom-button">
                     Add new event
                 </NavLink>
                 <div className="container px-5 py-6 mx-auto">
                     <div className="flex flex-wrap -m-4">
-                        <EventCard />
-                        <EventCard />
-                        <EventCard />
-                        <EventCard />
+
+                    {events.map((event, index) => ( 
+                        <EventCard event={event}/>
+                    ))}
+
+                        
                     </div>
                 </div>
             </section>
