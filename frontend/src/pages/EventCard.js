@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './EventCard.css'
 
 const EventCard = (props) => {
-    console.log(props.event.date);
     return (
         <>
 
