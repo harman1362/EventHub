@@ -35,6 +35,7 @@ const router = createBrowserRouter(
         <Route path='events/eventRegister' element={<EventRegister />}></Route>
         <Route path='register' element={<Register />}></Route>
         <Route path='admin' element={<AdminEvents />}></Route>
+        <Route path='addEvent' element={<EventRegister />}></Route>
         <Route path='logout' element={<Logout />}></Route>
       </Route>
       <Route path='*' element={<NotFound />}></Route>

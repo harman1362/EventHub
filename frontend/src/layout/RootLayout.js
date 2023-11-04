@@ -8,10 +8,13 @@ const RootLayout = () => {
 
 
   const [cookieVal, setCookieVal] = useState();
+  const [userType, setUserType] = useState();
   useEffect(() => {
     // Retrieve the value of the 'Authorization' cookie
     const userCookie = Cookies.get('Authorization');
+    const userType = Cookies.get('userType');
     setCookieVal(userCookie)
+    setUserType(userType)
   }, []);
 
   return (
@@ -138,13 +141,36 @@ const RootLayout = () => {
                 className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
                 Events
               </NavLink>
-              {cookieVal ? (
+              {
+              userType === "admin" ? (
+                <>
                 <NavLink
+                to="admin"
+                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                Admin Portal
+              </NavLink>
+              </>) :(<>
+                </>)
+              }
+              {
+              userType === "user" ? 
+                (<>
+                <NavLink
+                to="addEvent"
+                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                Add Event
+              </NavLink></>): (<></>)
+              }
+              {cookieVal ? (
+                <>
+                 <NavLink
                   to="logout"
                   className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"
                 >
                   Logout
                 </NavLink>
+                </>
+               
               ) : (
                 <>
                   <NavLink

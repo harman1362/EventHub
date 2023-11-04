@@ -54,6 +54,12 @@ async function login(req, res){
         sameSite: 'lax',
         secure:  process.env.NODE_ENV === 'production'
     })
+    res.cookie('userType' , user.userType,  {
+        expires: new Date(exp),
+        //httpOnly: true,
+        sameSite: 'lax',
+        secure:  process.env.NODE_ENV === 'production'
+    })
     // send the created jwt token
 
     res.status(200).json(user);
@@ -67,6 +73,7 @@ async function login(req, res){
 function logout(req, res){
     try {
         res.clearCookie("Authorization");
+        res.clearCookie("userType");
         res.sendStatus(200);
     } catch (error) {
         console.log(error);
