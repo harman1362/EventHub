@@ -56,6 +56,7 @@ const createEvent = async (req, res) => {
         category ,
         date, 
         organizer: req.user._id,
+        approvalStatus: 'pending'
       });
   
       // Fetch the created note
@@ -63,6 +64,38 @@ const createEvent = async (req, res) => {
   
       // Respond with the created event
       res.json({ event: createdEvent});
+    } catch (error) {
+      // Handle any unexpected errors
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred' });
+    }
+  };
+
+  const updateEventStatus = async (req, res) => {
+    try {
+      // Get the id from the URL
+      const eventId = req.params.id;
+  
+      console.log("event params are", req.params);
+      // Get the new approvalStatus value from the request body
+      const { approvalStatus } = req.body;
+  
+      // Update the event with a specific id
+      const updateResult = await Event.findOneAndUpdate(
+        { _id: eventId },
+        { $set: { approvalStatus: approvalStatus } }, // Use $set to update only the approvalStatus field
+        { new: true } // To return the updated event
+      );
+  
+      if (!updateResult) {
+        return res.status(404).json({ error: 'Event not found' });
+      }
+  
+      // Find the updated event
+      const updatedEvent = await Event.findById(eventId);
+  
+      // Respond with the updated event
+      res.json({ event: updatedEvent });
     } catch (error) {
       // Handle any unexpected errors
       console.error(error);
@@ -139,4 +172,4 @@ const createEvent = async (req, res) => {
   };
   
 
-module.exports  = {fetchEvent , createEvent ,fetchEventById ,updateEvent ,deleteEvent };
+module.exports  = {fetchEvent , createEvent ,fetchEventById ,updateEvent ,deleteEvent , updateEventStatus};

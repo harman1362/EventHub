@@ -22,6 +22,7 @@ import Register from './pages/Register';
 import Events from './pages/Events';
 import EventRegister from './pages/EventRegister';
 import AdminEvents from './pages/AdminEvents';
+import Logout from './pages/Logout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
         <Route path='events/eventRegister' element={<EventRegister />}></Route>
         <Route path='register' element={<Register />}></Route>
         <Route path='admin' element={<AdminEvents />}></Route>
+        <Route path='logout' element={<Logout />}></Route>
       </Route>
       <Route path='*' element={<NotFound />}></Route>
 

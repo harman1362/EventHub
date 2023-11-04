@@ -12,7 +12,12 @@ const eventSchema = mongoose.Schema({
     organizer:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'user',
-      }
+      },
+    ticketFee: Number,
+    isFull: Boolean,
+    // check if is approved by admin or not
+    // values: approved, pending, blocked
+    approvalStatus: String,
 });
 
 

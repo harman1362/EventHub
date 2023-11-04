@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const connectToDB = require('./config/dbConfig');
 const usersController = require('./controllers/userController');
 const requireAuth = require('./middleware/requireAuth');
-const { fetchEvent, createEvent, fetchEventById, updateEvent, deleteEvent } = require('./controllers/eventController');
+const { fetchEvent, createEvent, fetchEventById, updateEvent, deleteEvent, updateEventStatus } = require('./controllers/eventController');
 
  // app using express
 const app = express();
@@ -52,6 +52,8 @@ app.get('/events/:id' ,requireAuth, fetchEventById );
 app.put('/events/:id', requireAuth,updateEvent);
 // delete specific note
 app.delete('/events/:id', requireAuth, deleteEvent);
+
+app.put('/events/:id', requireAuth, updateEventStatus);
 
 app.listen(process.env.PORT, ()=> {
     console.log("App is running at port 2300!!")

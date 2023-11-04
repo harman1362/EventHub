@@ -5,13 +5,14 @@ const User = require('../models/userModel');
 async function signup(req, res){
     try {
         // get email and password from req body
-        const {email, password} = req.body;
+        const {email, password, userType} = req.body;
         // hash the password before storing in the database
         var hashedPassword = bcrypt.hashSync(password, 8);
         // create new user using data
         const response = await User.create({
             email, 
             password:hashedPassword,
+            userType: userType
         });
         // respond 
         res.sendStatus(200);
@@ -49,13 +50,13 @@ async function login(req, res){
     // set cookie with the token, check cookie npm option for more details 
     res.cookie('Authorization' , token,  {
         expires: new Date(exp),
-        httpOnly: true,
+        //httpOnly: true,
         sameSite: 'lax',
         secure:  process.env.NODE_ENV === 'production'
     })
     // send the created jwt token
 
-    res.sendStatus(200);
+    res.status(200).json(user);
     } catch (error) {
         console.log(error);
         res.sendStatus(400);

@@ -1,8 +1,19 @@
+import React, { useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import "./RootLayout.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import Cookies from 'js-cookie';
 
 const RootLayout = () => {
+
+
+  const [cookieVal, setCookieVal] = useState();
+  useEffect(() => {
+    // Retrieve the value of the 'Authorization' cookie
+    const userCookie = Cookies.get('Authorization');
+    setCookieVal(userCookie)
+  }, []);
+
   return (
     <>
       <div class="relative min-h-screen md:flex " data-dev-hint="container">
@@ -33,12 +44,8 @@ const RootLayout = () => {
           class="bg-gray-600 text-gray-100 flex justify-between md:hidden"
           data-dev-hint="mobile menu bar"
         >
-          {/* <a
-            href="#"
-            class="block p-4 text-white font-bold whitespace-nowrap truncate"
-          >
-            EventHub
-          </a> */}
+
+
           <NavLink
             to="/"
             className="block p-4 text-white font-bold whitespace-nowrap truncate">
@@ -131,21 +138,31 @@ const RootLayout = () => {
                 className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
                 Events
               </NavLink>
-              <NavLink
-                to="Login"
-                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
-                Login
-              </NavLink>
-              <NavLink
-                to="Register"
-                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
-                Register
-              </NavLink>
-              <NavLink
-                to="admin"
-                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
-                Admin
-              </NavLink>
+              {cookieVal ? (
+                <NavLink
+                  to="logout"
+                  className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"
+                >
+                  Logout
+                </NavLink>
+              ) : (
+                <>
+                  <NavLink
+                    to="Login"
+                    className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"
+                  >
+                    Login
+                  </NavLink>
+                  <NavLink
+                    to="Register"
+                    className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"
+                  >
+                    Register
+                  </NavLink>
+                </>
+              )
+              }
+
             </nav>
             {/* <div className="absolute w-full bottom-2">
               <hr />
