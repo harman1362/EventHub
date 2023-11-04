@@ -53,7 +53,7 @@ app.put('/events/:id', requireAuth,updateEvent);
 // delete specific note
 app.delete('/events/:id', requireAuth, deleteEvent);
 
-app.put('/events/:id', requireAuth, updateEventStatus);
+app.put('/events/eventStatus/:id', requireAuth, updateEventStatus);
 
 app.listen(process.env.PORT, ()=> {
     console.log("App is running at port 2300!!")

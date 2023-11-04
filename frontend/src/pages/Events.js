@@ -12,7 +12,9 @@ const Events = () => {
         const fetchEvents = async () => {
             try {
                 const response = await axios.get('http://localhost:2300/events');
-                setEvents(response.data.events);
+                const allEvents = response.data.events;
+                const approvedEvents = allEvents.filter( (event)=> event.approvalStatus === "approved" );
+                setEvents(approvedEvents);
             } catch (error) {
                 console.error('Error fetching events:', error);
             }
