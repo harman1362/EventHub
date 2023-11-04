@@ -43,7 +43,7 @@ app.get('/logout', usersController.logout);
 app.get('/check-auth', requireAuth,usersController.checkAuth);
 
 // get all events
-app.get('/events',requireAuth, fetchEvent );
+app.get('/events', fetchEvent );
 // create a new event
 app.post('/events' ,requireAuth,createEvent);
 // get the specific event

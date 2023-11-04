@@ -26,11 +26,6 @@ const Events = () => {
     return (
         <>
             <section className="text-gray-600 body-font">
-                <NavLink
-                    to="EventRegister"
-                    className="custom-button">
-                    Add new event
-                </NavLink>
                 <div className="container px-5 py-6 mx-auto">
                     <div className="flex flex-wrap -m-4">
 

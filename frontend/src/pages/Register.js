@@ -26,7 +26,7 @@ const Register = () => {
         axios
             .post(endpoint, formData)
             .then((response) => {
-                alert("New User Registered")
+                alert("New User Registered");
                 console.log('Request was successful:', response.data);
             })
 
@@ -69,7 +69,7 @@ const Register = () => {
 
                                 <div>
                                     <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User Type</label>
-                                    <select id="userType" name="userType" onChange={handleChange} value="user">
+                                    <select id="userType" name="userType" onChange={handleChange} value={formData.userType}>
                                         <option value="admin">Admin</option>
                                         <option value="user">User</option>
                                     </select>
