@@ -21,8 +21,7 @@ function AdminEvents() {
 
     const eventApproved = (eventId) => {
 
-        console.log("event id is :", eventId);
-        const apiUrl = `http://localhost:2300/events/${eventId}`;     
+    const apiUrl = `http://localhost:2300/events/eventStatus/${eventId}`;     
 
     // Create an object with the data you want to send in the request body
     const requestData = {
@@ -34,6 +33,7 @@ function AdminEvents() {
       .then(response => {
         console.log('PUT request successful', response.data);
         // Handle the response data as needed
+        alert("Event status updated!!!")
       })
       .catch(error => {
         console.error('Error sending PUT request', error);
@@ -41,9 +41,28 @@ function AdminEvents() {
       });
     }
 
-    const eventRejected = () => {
-        
-    }
+    const eventRejected = (eventId) => {
+
+        const apiUrl = `http://localhost:2300/events/eventStatus/${eventId}`;     
+    
+        // Create an object with the data you want to send in the request body
+        const requestData = {
+          approvalStatus: 'rejected',
+        };
+    
+        // Send the PUT request using Axios
+        axios.put(apiUrl, requestData)
+          .then(response => {
+            console.log('PUT request successful', response.data);
+            // Handle the response data as needed
+            alert("Event status updated!!!")
+          })
+          .catch(error => {
+            console.error('Error sending PUT request', error);
+            // Handle any errors
+          });
+        }
+
 
     return (
         
@@ -58,6 +77,7 @@ function AdminEvents() {
                         <th>Category</th>
                         <th>Date</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,9 +88,10 @@ function AdminEvents() {
                             <td>{event.eventDescription}</td>
                             <td>{event.category}</td>
                             <td>{event.date} </td>
+                            <td>{event.approvalStatus}</td>
                             <td>
                                 <button onClick={() => eventApproved(event._id)}>Approve</button>
-                                <button onClick={() => eventApproved(event._id)}>Reject</button>
+                                <button onClick={() => eventRejected(event._id)}>Reject</button>
                             </td>
                         </tr>
                     ))}

@@ -75,8 +75,6 @@ const createEvent = async (req, res) => {
     try {
       // Get the id from the URL
       const eventId = req.params.id;
-  
-      console.log("event params are", req.params);
       // Get the new approvalStatus value from the request body
       const { approvalStatus } = req.body;
   
