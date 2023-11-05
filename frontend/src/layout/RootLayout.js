@@ -1,50 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import "./RootLayout.css";
-
-import Cookies from 'js-cookie';
+import authStore from "../store/authStore"
 
 const RootLayout = () => {
 
+  // const [cookieVal, setCookieVal] = useState();
+  // const [userType, setUserType] = useState();
+  // useEffect(() => {
+  //   // Retrieve the value of the 'Authorization' cookie
+  //   const userCookie = Cookies.get('Authorization');
+  //   const userType = Cookies.get('userType');
+  //   setCookieVal(userCookie)
+  //   setUserType(userType)
+  // }, []);
 
-  const [cookieVal, setCookieVal] = useState();
-  const [userType, setUserType] = useState();
-  useEffect(() => {
-    // Retrieve the value of the 'Authorization' cookie
-    const userCookie = Cookies.get('Authorization');
-    const userType = Cookies.get('userType');
-    setCookieVal(userCookie)
-    setUserType(userType)
-  }, []);
+  // using zustand 
+  const store = authStore();
 
   return (
     <>
-      <div class="relative min-h-screen md:flex " data-dev-hint="container">
-        <input type="checkbox" id="menu-open" class="hidden" />
+      <div className="relative min-h-screen md:flex " data-dev-hint="container">
+        <input type="checkbox" id="menu-open" className="hidden" />
 
         <label
-          for="menu-open"
-          class="absolute right-2 bottom-2 shadow-lg rounded-full p-2 bg-gray-100 text-gray-600 md:hidden"
+          htmlFor="menu-open"
+          className="absolute right-2 bottom-2 shadow-lg rounded-full p-2 bg-gray-100 text-gray-600 md:hidden"
           data-dev-hint="floating action button"
         >
           <svg
-            class="h-6 w-6"
+            className="h-6 w-6"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
         </label>
 
         <header
-          class="bg-gray-600 text-gray-100 flex justify-between md:hidden"
+          className="bg-gray-600 text-gray-100 flex justify-between md:hidden"
           data-dev-hint="mobile menu bar"
         >
 
@@ -56,37 +57,37 @@ const RootLayout = () => {
           </NavLink>
 
           <label
-            for="menu-open"
+            htmlFor="menu-open"
             id="mobile-menu-button"
-            class="m-2 p-2 focus:outline-none hover:text-white hover:bg-gray-700 rounded-md"
+            className="m-2 p-2 focus:outline-none hover:text-white hover:bg-gray-700 rounded-md"
           >
             <svg
               id="menu-open-icon"
-              class="h-6 w-6 transition duration-200 ease-in-out"
+              className="h-6 w-6 transition duration-200 ease-in-out"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
             <svg
               id="menu-close-icon"
-              class="h-6 w-6 transition duration-200 ease-in-out"
+              className="h-6 w-6 transition duration-200 ease-in-out"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
@@ -95,31 +96,31 @@ const RootLayout = () => {
 
         <aside
           id="sidebar"
-          class="bg-gray-800  text-gray-100 md:w-64 w-3/4 space-y-6 pt-6 px-0 fixed inset-y-0 left-0 transform md:fixed md:translate-x-0 transition duration-200 ease-in-out  md:flex md:flex-col md:justify-between overflow-y-auto"
-          data-dev-hint="sidebar; px-0 for frameless; px-2 for visually inset the navigation"
+          className="bg-gray-800  text-gray-100 md:w-64 w-3/4 space-y-6 pt-6 px-0 fixed inset-y-0 left-0 transhtmlForm md:fixed md:translate-x-0 transition duration-200 ease-in-out  md:flex md:flex-col md:justify-between overflow-y-auto"
+          data-dev-hint="sidebar; px-0 htmlFor frameless; px-2 htmlFor visually inset the navigation"
         >
           <div
-            class="flex flex-col space-y-6"
-            data-dev-hint="optional div for having an extra footer navigation"
+            className="flex flex-col space-y-6"
+            data-dev-hint="optional div htmlFor having an extra footer navigation"
           >
             <NavLink
               to="/"
               className="text-white flex items-center space-x-2 px-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6 flex-0"
+                className="h-6 w-6 flex-0"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
                 />
               </svg>
-              <span class="text-2xl font-extrabold whitespace-nowrap truncate">
+              <span className="text-2xl font-extrabold whitespace-nowrap truncate">
                 EventHub
               </span>
             </NavLink>
@@ -142,35 +143,35 @@ const RootLayout = () => {
                 Events
               </NavLink>
               {
-              userType === "admin" ? (
-                <>
-                <NavLink
-                to="admin"
-                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
-                Admin Portal
-              </NavLink>
-              </>) :(<>
-                </>)
+                store.userType === "admin" ? (
+                  <>
+                    <NavLink
+                      to="admin"
+                      className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                      Admin Portal
+                    </NavLink>
+                  </>) : (<>
+                  </>)
               }
               {
-              userType === "user" ? 
-                (<>
-                <NavLink
-                to="addEvent"
-                className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
-                Add Event
-              </NavLink></>): (<></>)
+                store.userType === "user" ?
+                  (<>
+                    <NavLink
+                      to="addEvent"
+                      className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                      Add Event
+                    </NavLink></>) : (<></>)
               }
-              {cookieVal ? (
+              {store.loggedIn ? (
                 <>
-                 <NavLink
-                  to="logout"
-                  className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"
-                >
-                  Logout
-                </NavLink>
+                  <NavLink
+                    to="logout"
+                    className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"
+                  >
+                    Logout
+                  </NavLink>
                 </>
-               
+
               ) : (
                 <>
                   <NavLink
@@ -218,9 +219,9 @@ const RootLayout = () => {
 
         </aside>
 
-        <main id="content" class="flex-1 md:ml-[30%] lg:ml-[20%] p-12">
-          <div class="max-w-7xl">
-            <div class="sm:px-0">
+        <main id="content" className="flex-1 md:ml-[30%] lg:ml-[20%] p-12">
+          <div className="max-w-7xl">
+            <div className="sm:px-0">
               <Outlet />
             </div>
           </div>
