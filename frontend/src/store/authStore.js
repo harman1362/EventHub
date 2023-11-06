@@ -61,11 +61,23 @@ const authStore = create((set) => ({
     // check if session have authorization
     checkAuth: async () => {
         try {
-            await axios.get('/check-auth');
+            await axios.get('http://localhost:2300/check-auth');
             // now set the loggedIn state to true
             set({ loggedIn: true });
         } catch (error) {
             set({ loggedIn: false });
+        }
+    },
+    // check if session have authorization
+    checkAdminAuth: async () => {
+        try {
+            await axios.get('http://localhost:2300/check-admin-auth');
+            set({ loggedIn: true,
+                userType: 'admin'
+             });
+
+        } catch (error) {
+            set({ loggedIn: false, userType: '' });
         }
     },
     logout: async () => {

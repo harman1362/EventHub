@@ -23,6 +23,8 @@ import Events from './pages/Events';
 import EventRegister from './pages/EventRegister';
 import AdminEvents from './pages/AdminEvents';
 import Logout from './pages/Logout';
+import RequireAuth from './pages/RequireAuth';
+import RequireAdminAuth from './pages/requireAdminAuth';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,11 +33,11 @@ const router = createBrowserRouter(
         <Route index element={<Home />}></Route>
         <Route path='about' element={<About />}></Route>
         <Route path='login' element={<Login />}></Route>
-        <Route path='events' element={<Events />}></Route>
-        <Route path='events/eventRegister' element={<EventRegister />}></Route>
+        <Route path='events' element={ <Events />}></Route>
+        <Route path='events/eventRegister' element={ <RequireAuth>  <EventRegister />  </RequireAuth>}></Route>
         <Route path='register' element={<Register />}></Route>
-        <Route path='admin' element={<AdminEvents />}></Route>
-        <Route path='addEvent' element={<EventRegister />}></Route>
+        <Route path='admin' element={ <RequireAdminAuth > <AdminEvents /> </RequireAdminAuth>}></Route>
+        <Route path='addEvent' element={<RequireAuth>  <EventRegister /> </RequireAuth>}></Route>
         <Route path='logout' element={<Logout />}></Route>
       </Route>
       <Route path='*' element={<NotFound />}></Route>

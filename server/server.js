@@ -12,6 +12,7 @@ const connectToDB = require('./config/dbConfig');
 const usersController = require('./controllers/userController');
 const requireAuth = require('./middleware/requireAuth');
 const { fetchEvent, createEvent, fetchEventById, updateEvent, deleteEvent, updateEventStatus } = require('./controllers/eventController');
+const adminAuth = require('./middleware/adminAuth');
 
  // app using express
 const app = express();
@@ -41,6 +42,7 @@ app.post('/login', usersController.login);
 app.get('/logout', usersController.logout);
 
 app.get('/check-auth', requireAuth,usersController.checkAuth);
+app.get('/check-admin-auth', adminAuth,usersController.checkAuth);
 
 // get all events
 app.get('/events', fetchEvent );
@@ -53,7 +55,7 @@ app.put('/events/:id', requireAuth,updateEvent);
 // delete specific note
 app.delete('/events/:id', requireAuth, deleteEvent);
 
-app.put('/events/eventStatus/:id', requireAuth, updateEventStatus);
+app.put('/events/eventStatus/:id', adminAuth, updateEventStatus);
 
 app.listen(process.env.PORT, ()=> {
     console.log("App is running at port 2300!!")
