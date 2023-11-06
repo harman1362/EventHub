@@ -1,27 +1,17 @@
 import EventCard from './EventCard';
-import { NavLink } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, {  useEffect } from 'react';
 import './EventCard.css'
+import EventStore from '../store/eventStore';
 
 const Events = () => {
+    // using zustand
+     // store 
+    const store = EventStore();
 
-    const [events, setEvents] = useState([]);
-
+    // fetch all events once the app is loaded
     useEffect(() => {
-        const fetchEvents = async () => {
-            try {
-                const response = await axios.get('http://localhost:2300/events');
-                const allEvents = response.data.events;
-                const approvedEvents = allEvents.filter((event) => event.approvalStatus === "approved");
-                setEvents(approvedEvents);
-            } catch (error) {
-                console.error('Error fetching events:', error);
-            }
-        };
-
-        fetchEvents();
-    }, []);
+        store.fetchEvents();
+    }, [])
 
     return (
         <>
@@ -72,11 +62,9 @@ const Events = () => {
                     <div className="container  py-6 mx-auto">
                         <div className="flex flex-wrap -m-4">
 
-                            {events.map((event, index) => (
-                                <EventCard event={event} />
+                            {store.events && store.events.map((event, index) => (
+                                event.approvalStatus === "approved" && <EventCard event={event} />
                             ))}
-
-
                         </div>
                     </div>
                 </section>

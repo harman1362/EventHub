@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import './EventCard.css'
 import authStore from "../store/authStore"
 import { useNavigate } from "react-router-dom";
@@ -46,7 +45,7 @@ const Register = () => {
         try {
             //    signup
            const response =  await store.signup();
-           if(response == 1){
+           if(response === 1){
             // navigate to login page
             navigate('/login');
         }

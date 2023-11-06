@@ -1,58 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './EventRegister.css'
-import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import EventStore from '../store/eventStore';
 
 
 function EventRegister() {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    eventName: '',
-    location: '',
-    eventDescription: '',
-    category: '',
-    date: ''
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log();
-    console.log(formData);
-    const endpoint = 'http://localhost:2300/events';
-
-    axios
-      .post(endpoint, formData)
-      .then((response) => {
-        alert("Event Registered Successful")
-        console.log('Request was successful:', response.data);
-        navigate('/events')
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-  };
-
+  const store = EventStore();
   return (
     <div>
       <h2>Event Registration</h2>
       <div className="event-registration-container">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={store.createEvent}>
           <div>
             <label>Event Name:</label>
             <input
               type="text"
               name="eventName"
-              value={formData.eventName}
-              onChange={handleChange}
+              value={store.eventFormData.eventName}
+              onChange={store.setFormData}
               required
             />
           </div>
@@ -61,8 +25,8 @@ function EventRegister() {
             <input
               type="text"
               name="location"
-              value={formData.location}
-              onChange={handleChange}
+              value={store.eventFormData.location}
+              onChange={store.setFormData}
               required
             />
           </div>
@@ -71,8 +35,8 @@ function EventRegister() {
             <input
               type="text"
               name="eventDescription"
-              value={formData.eventDescription}
-              onChange={handleChange}
+              value={store.eventFormData.eventDescription}
+              onChange={store.setFormData}
               required
             />
           </div>
@@ -81,8 +45,8 @@ function EventRegister() {
             <input
               type="text"
               name="category"
-              value={formData.category}
-              onChange={handleChange}
+              value={store.eventFormData.category}
+              onChange={store.setFormData}
               required
             />
           </div>
@@ -91,8 +55,8 @@ function EventRegister() {
             <input
               type="date"
               name="date"
-              value={formData.date}
-              onChange={handleChange}
+              value={store.eventFormData.date}
+              onChange={store.setFormData}
               required
             />
           </div>
