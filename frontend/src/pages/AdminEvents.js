@@ -1,69 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AdminEvents.css'
+import EventStore from '../store/eventStore';
 
 function AdminEvents() {
-    const [events, setEvents] = useState([]);
-
-    useEffect(() => {
-        const fetchEvents = async () => {
-            try {
-                const response = await axios.get('http://localhost:2300/events');
-                console.log("events information", response.data.events);
-                setEvents(response.data.events);
-            } catch (error) {
-                console.error('Error fetching events:', error);
-            }
-        };
-
-        fetchEvents();
-    }, []);
-
-    const eventApproved = (eventId) => {
-
-        const apiUrl = `http://localhost:2300/events/eventStatus/${eventId}`;
-
-        // Create an object with the data you want to send in the request body
-        const requestData = {
-            approvalStatus: 'approved',
-        };
-
-        // Send the PUT request using Axios
-        axios.put(apiUrl, requestData)
-            .then(response => {
-                console.log('PUT request successful', response.data);
-                // Handle the response data as needed
-                alert("Event status updated!!!")
-            })
-            .catch(error => {
-                console.error('Error sending PUT request', error);
-                // Handle any errors
-            });
-    }
-
-    const eventRejected = (eventId) => {
-
-        const apiUrl = `http://localhost:2300/events/eventStatus/${eventId}`;
-
-        // Create an object with the data you want to send in the request body
-        const requestData = {
-            approvalStatus: 'rejected',
-        };
-
-        // Send the PUT request using Axios
-        axios.put(apiUrl, requestData)
-            .then(response => {
-                console.log('PUT request successful', response.data);
-                // Handle the response data as needed
-                alert("Event status updated!!!")
-            })
-            .catch(error => {
-                console.error('Error sending PUT request', error);
-                // Handle any errors
-            });
-    }
-
-
+    // using zustand store 
+    const store = EventStore();
+   // fetch all events once the app is loaded
+   useEffect(() => {
+    store.fetchEvents();
+}, [])
     return (
 
         <div>
@@ -100,7 +46,7 @@ function AdminEvents() {
                         </tr>
                     </thead>
 
-                    {events.map((event, index) => (
+                    {store.events && store.events.map((event, index) => (
                         <tbody>
                             <tr key={index} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-950 whitespace-nowrap dark:text-white">
@@ -122,8 +68,8 @@ function AdminEvents() {
                                     {event.approvalStatus}
                                 </td>
                                 <td class="px-6 py-4 text-right">
-                                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onClick={() => eventApproved(event._id)}>Approve</button>
-                                    <button class="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => eventRejected(event._id)}>Reject</button>
+                                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onClick={() => store.handleApproval(event._id, 'approved')}>Approve</button>
+                                    <button class="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => store.handleApproval(event._id, 'rejected')}>Reject</button>
                                 </td>
                             </tr>
                         </tbody>
