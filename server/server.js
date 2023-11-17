@@ -44,6 +44,8 @@ app.get('/logout', usersController.logout);
 app.get('/check-auth', requireAuth,usersController.checkAuth);
 app.get('/check-admin-auth', adminAuth,usersController.checkAuth);
 
+app.put('/user-event-register/:id', requireAuth ,usersController.updateRegisteredEvents);
+
 // get all events
 app.get('/events', fetchEvent );
 // create a new event

@@ -45,6 +45,34 @@ const EventStore = create((set) => ({
             }
         })
     },
+    fetchEventById: async (eventId) => {
+      // get notes from api
+      try {
+          const response = await axios.get(`http://localhost:2300/events/${eventId}`);
+          if( response.status === 200  ){
+          const event = response.data.event;
+         return event;
+      }else{
+          alert("Error getting event");
+          return null;
+          console.error('Error fetching the data');
+      }
+      } catch (error) {
+        return null;
+          console.error('Error fetching the data',error);
+      }
+  },
+  setFormData: (e) => {
+      const { name, value } = e.target;
+      set((state) => {
+          return {
+              eventFormData: {
+                  ...state.eventFormData,
+                  [name]: value
+              }
+          }
+      })
+  },
     createEvent: async (e) => {
         e.preventDefault();
         try {

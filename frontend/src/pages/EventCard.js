@@ -1,7 +1,17 @@
 import React from 'react';
-import './EventCard.css'
+import './EventCard.css';
+import { useNavigate } from 'react-router-dom';
 
 const EventCard = (props) => {
+    const navigate = useNavigate();
+
+
+
+    const navigateToRegister = () => {
+        let eventId = props.event._id;
+        navigate(`/event-detail/${eventId}`);
+    }
+
     return (
         <>
 
@@ -12,7 +22,7 @@ const EventCard = (props) => {
                     <p class="leading-relaxed mb-3">{props.event.eventDescription}</p>
                     <p class="leading-relaxed mb-3">{props.event.location}</p>
                     <p class="leading-relaxed mb-3">{props.event.date}</p>
-                    <button className="custom-button">Register </button>
+                    <button className="custom-button" onClick={navigateToRegister}>View Event </button>
 
                 </div>
             </div>

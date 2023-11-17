@@ -14,6 +14,7 @@ const authStore = create((set) => ({
     },
     loggedIn: null,
     userType: null,
+    userId: null,
     // functions
     updateLoginForm: (e) => {
         // get value and name from event(onChange)
@@ -48,6 +49,7 @@ const authStore = create((set) => ({
               },
               loggedIn: true,
               userType: response.data.userType,
+              userId: response.data._id
             }));
           } else {
             alert('Wrong Email or Password');
@@ -90,7 +92,8 @@ const authStore = create((set) => ({
                     password: '',
                     
                 },
-                userType: '',
+                userType: null,
+                userId: null,
             });
         } catch (error) {
         }
@@ -130,6 +133,23 @@ const authStore = create((set) => ({
             return 0;
         }
         } catch (error) {
+            return 0;
+        }
+    },
+    userEventRegister: async (eventId) => {
+        const {userId} = authStore.getState();
+        try {
+            const response  = await axios.put(`http://localhost:2300/user-event-register/${userId}`, eventId);
+            if (response.status === 200) {
+           
+            alert("Event Register Successfull!!");
+            return 1;
+        }else {
+            alert("Try again!!");
+            return 0;
+        }
+        } catch (error) {
+            alert("Try again!!");
             return 0;
         }
     }
