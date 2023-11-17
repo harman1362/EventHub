@@ -25,6 +25,7 @@ import AdminEvents from './pages/AdminEvents';
 import Logout from './pages/Logout';
 import RequireAuth from './pages/RequireAuth';
 import RequireAdminAuth from './pages/requireAdminAuth';
+import EventDetail from './pages/EventDetail';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
         <Route path='admin' element={ <RequireAdminAuth > <AdminEvents /> </RequireAdminAuth>}></Route>
         <Route path='addEvent' element={<RequireAuth>  <EventRegister /> </RequireAuth>}></Route>
         <Route path='logout' element={<Logout />}></Route>
+      <Route path="event-detail/:eventId" element={<EventDetail />} />
       </Route>
       <Route path='*' element={<NotFound />}></Route>
 

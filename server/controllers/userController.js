@@ -70,6 +70,40 @@ async function login(req, res){
     
  
 };
+const updateRegisteredEvents = async (req, res) => {
+    try {
+      console.log("----------------------", req.params);
+      // Get the id from the URL
+      const userId = req.params.id;
+
+      //get the eventid of registered event by user
+      const { eventId } = req.body;
+      // Update the user's registered events with a specific id
+      const updateResult = await User.findOneAndUpdate(
+        { _id: userId },{
+            $push: {
+                // Append new data to the existing array
+                registeredEvent: eventId
+              },
+        },
+        { new: true } // To return the updated event
+      );
+  
+      if (!updateResult) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      // Find the updated event
+      const updatedUser = await User.findById(userId);
+  
+      // Respond with the updated event
+      res.json({ user: updatedUser });
+    } catch (error) {
+      // Handle any unexpected errors
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred' });
+    }
+  };
 function logout(req, res){
     try {
         res.clearCookie("Authorization");
@@ -98,4 +132,5 @@ module.exports = {
     login,
     logout,
     checkAuth, 
+    updateRegisteredEvents
 }
