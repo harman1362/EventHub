@@ -138,8 +138,9 @@ const authStore = create((set) => ({
     },
     userEventRegister: async (eventId) => {
         const {userId} = authStore.getState();
+        console.log("frontend api call " , eventId);
         try {
-            const response  = await axios.put(`http://localhost:2300/user-event-register/${userId}`, eventId);
+            const response  = await axios.put(`http://localhost:2300/user-event-register/${userId}`, {eventId});
             if (response.status === 200) {
            
             alert("Event Register Successfull!!");
