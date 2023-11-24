@@ -173,12 +173,13 @@ const authStore = create((set) => ({
     },
     fetchRegisteredEvents: async () => {
         const {userId} = authStore.getState();
-        // add new user data for update
+        
+        console.log("userId is  ", userId);
         try {
-            const response  = await axios.put(`http://localhost:2300/user-registered-events/${userId}`);
+            const response  = await axios.get(`http://localhost:2300/user-registered-events/${userId}`);
             if (response.status === 200) {
            
-            alert("User updated Successfull!!");
+            alert("Events fetched Successfull!!");
             return response.data.events;
         }else {
             alert("Try again!!");
@@ -188,7 +189,7 @@ const authStore = create((set) => ({
             alert("Try again!!");
             return 0;
         }
-    },
+    }
 
 }))
 

@@ -160,7 +160,11 @@ const RootLayout = () => {
                       to="addEvent"
                       className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
                       Add Event
-                    </NavLink></>) : (<></>)
+                    </NavLink>
+
+                    
+                    
+                    </>) : (<></>)
               }
               {store.loggedIn ? (
                 <>
@@ -170,6 +174,12 @@ const RootLayout = () => {
                   >
                     Logout
                   </NavLink>
+
+                  <NavLink
+                      to="profile"
+                      className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                      Profile
+                    </NavLink>
                 </>
 
               ) : (
