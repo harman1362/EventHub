@@ -138,7 +138,6 @@ const authStore = create((set) => ({
     },
     userEventRegister: async (eventId) => {
         const {userId} = authStore.getState();
-        console.log("frontend api call " , eventId);
         try {
             const response  = await axios.put(`http://localhost:2300/user-event-register/${userId}`, {eventId});
             if (response.status === 200) {
@@ -153,7 +152,44 @@ const authStore = create((set) => ({
             alert("Try again!!");
             return 0;
         }
-    }
+    },
+    userUpdate: async () => {
+        const {userId} = authStore.getState();
+        // add new user data for update
+        try {
+            const response  = await axios.put(`http://localhost:2300/user-update/${userId}`);
+            if (response.status === 200) {
+           
+            alert("User updated Successfull!!");
+            return 1;
+        }else {
+            alert("Try again!!");
+            return 0;
+        }
+        } catch (error) {
+            alert("Try again!!");
+            return 0;
+        }
+    },
+    fetchRegisteredEvents: async () => {
+        const {userId} = authStore.getState();
+        // add new user data for update
+        try {
+            const response  = await axios.put(`http://localhost:2300/user-registered-events/${userId}`);
+            if (response.status === 200) {
+           
+            alert("User updated Successfull!!");
+            return response.data.events;
+        }else {
+            alert("Try again!!");
+            return 0;
+        }
+        } catch (error) {
+            alert("Try again!!");
+            return 0;
+        }
+    },
+
 }))
 
 export default authStore;

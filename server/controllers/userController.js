@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs'); 
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
+const Event = require('../models/eventModel');
 
 async function signup(req, res){
     try {
@@ -22,6 +23,38 @@ async function signup(req, res){
     }
 
 };
+
+async function userUpdate (req, res) {
+    try {
+      // Get the id from the URL
+      const userId = req.params.id;
+  
+      // Get the updates from the request body
+      const { firstName, lastName } = req.body;
+
+      if (!firstName || !lastName) {
+        return res.status(400).json({ error: 'Email, firstName, and lastName are required for update' });
+      }
+  
+          // Update the user
+        const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { firstName, lastName },
+        { new: true }
+      );
+  
+      if (!updatedUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+      // Respond with the updated user
+      res.json({ user: updatedUser });
+    } catch (error) {
+      // Handle any unexpected errors
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred' });
+    }
+}
 
 async function login(req, res){
     try {
@@ -134,11 +167,42 @@ function checkAuth(req, res){
         res.sendStatus(400);
     }
     
-} 
+}
+async function fetchRegisteredEvents(req, res) {
+  try {
+    // Get the user ID from the URL
+    const userId = req.params.id;
+    console.log(userId);
+
+    // Find the user with the given ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Get the IDs of events from the user's registeredEvent array
+    const eventIds = user.registeredEvent;
+
+    // Find all events with the retrieved IDs
+    const events = await Event.find({ _id: { $in: eventIds } });
+
+    // Respond with the details of events
+    res.json({ events });
+  } catch (error) {
+    // Handle any unexpected errors
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+
+}
+
 module.exports = {
     signup,
     login,
     logout,
     checkAuth, 
-    updateRegisteredEvents
+    updateRegisteredEvents,
+    userUpdate,
+    fetchRegisteredEvents
 }
