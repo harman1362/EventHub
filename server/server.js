@@ -44,7 +44,9 @@ app.get('/logout', usersController.logout);
 app.get('/check-auth', requireAuth,usersController.checkAuth);
 app.get('/check-admin-auth', adminAuth,usersController.checkAuth);
 
+app.put('/user-update/:id', requireAuth , usersController.userUpdate);
 app.put('/user-event-register/:id', requireAuth ,usersController.updateRegisteredEvents);
+app.get('/user-registered-events/:id', requireAuth ,usersController.fetchRegisteredEvents);
 
 // get all events
 app.get('/events', fetchEvent );
