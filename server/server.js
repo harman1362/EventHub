@@ -51,7 +51,7 @@ app.get('/events', fetchEvent );
 // create a new event
 app.post('/events' ,requireAuth,createEvent);
 // get the specific event
-app.get('/events/:id' ,requireAuth, fetchEventById );
+app.get('/events/:id', fetchEventById );
 // update event
 app.put('/events/:id', requireAuth,updateEvent);
 // delete specific note

@@ -72,12 +72,20 @@ async function login(req, res){
 };
 const updateRegisteredEvents = async (req, res) => {
     try {
-      console.log("----------------------", req.params);
       // Get the id from the URL
       const userId = req.params.id;
 
       //get the eventid of registered event by user
       const { eventId } = req.body;
+
+      const currentUser = await User.findById(userId);
+      console.log("event is registed already -----" ,currentUser.registeredEvent.includes(eventId));
+      
+      if (currentUser.registeredEvent.includes(eventId)) {
+        // Event ID already exists in the registered events array
+        return res.status(404).json({ error: 'Event already registered by the user' });
+      }
+
       // Update the user's registered events with a specific id
       const updateResult = await User.findOneAndUpdate(
         { _id: userId },{

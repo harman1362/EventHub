@@ -28,9 +28,11 @@ const EventDetail = () => {
           <p>Event name: {currentEvent.eventName}</p>
           <p>Event detail: {currentEvent.eventDescription}</p>
           <p>Event id: {currentEvent._id}</p>
+          {
+            authstore.loggedIn && (
+            <button className="custom-button" onClick={() => authstore.userEventRegister(currentEvent._id)}>Register</button>)
+          }
           
-
-          <button className="custom-button" onClick={() => authstore.userEventRegister(currentEvent._id)}>Register</button>
         </div>
       </>
     )}
