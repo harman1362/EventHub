@@ -15,6 +15,7 @@ const authStore = create((set) => ({
     loggedIn: null,
     userType: null,
     userId: null,
+    loggedInUserInfo: null,
     // functions
     updateLoginForm: (e) => {
         // get value and name from event(onChange)
@@ -49,7 +50,8 @@ const authStore = create((set) => ({
               },
               loggedIn: true,
               userType: response.data.userType,
-              userId: response.data._id
+              userId: response.data._id,
+              loggedInUserInfo: response.data
             }));
           } else {
             alert('Wrong Email or Password');
@@ -153,11 +155,16 @@ const authStore = create((set) => ({
             return 0;
         }
     },
-    userUpdate: async () => {
+    userUpdate: async (...args) => {
         const {userId} = authStore.getState();
-        // add new user data for update
+        let firstName = args[0];
+        let lastName = args[1];
         try {
-            const response  = await axios.put(`http://localhost:2300/user-update/${userId}`);
+            
+            const response = await axios.put(`http://localhost:2300/user-update/${userId}`, {
+                firstName: firstName,
+                lastName: lastName,
+            });
             if (response.status === 200) {
            
             alert("User updated Successfull!!");
@@ -179,7 +186,6 @@ const authStore = create((set) => ({
             const response  = await axios.get(`http://localhost:2300/user-registered-events/${userId}`);
             if (response.status === 200) {
            
-            alert("Events fetched Successfull!!");
             return response.data.events;
         }else {
             alert("Try again!!");
