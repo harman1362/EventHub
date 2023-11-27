@@ -1,11 +1,11 @@
 import EventCard from './EventCard';
-import React, {  useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './EventCard.css'
 import EventStore from '../store/eventStore';
 
 const Events = () => {
     // using zustand
-     // store 
+    // store 
     const store = EventStore();
 
     // fetch all events once the app is loaded
@@ -21,6 +21,7 @@ const Events = () => {
                 >
                     All Events
                 </h1>
+
                 <section className='py-8'>
 
                     <form>
@@ -59,8 +60,9 @@ const Events = () => {
 
                 </section>
                 <section className="text-gray-600 body-font">
+
                     <div className="container  py-6 mx-auto">
-                        <div className="flex flex-wrap -m-4">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
 
                             {store.events && store.events.map((event, index) => (
                                 event.approvalStatus === "approved" && <EventCard event={event} />

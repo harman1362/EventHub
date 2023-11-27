@@ -45,10 +45,10 @@ const Home = () => {
 
         </section>
 
-        <section className='max-w-[70vw] '>
-          <div class="flex flex-col bg-gray-800 py-8">
+        <section className='max-w-[70vw] border'>
+          <div class="flex flex-col py-8 ">
             <h1
-              class="flex font-bold text-4xl text-white m-auto"
+              class="flex font-bold text-4xl text-black m-auto"
             >
               Popular Events
             </h1>
@@ -56,14 +56,13 @@ const Home = () => {
               class="flex overflow-x-scroll  hide-scroll-bar py-8"
             >
               <div
-                class="flex flex-nowrap "
+                class="grid grid-cols-2 md:grid-cols-3 gap-4"
               >
 
                 {events.map((event, index) => (
                   <>
 
                     <div class="inline-block px-3">
-
                       <EventCard event={event} />
                     </div>
                   </>
