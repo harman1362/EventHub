@@ -150,6 +150,11 @@ const RootLayout = () => {
                       className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
                       Admin Portal
                     </NavLink>
+                    <NavLink
+                      to="add-new-admin"
+                      className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                      Add Admin
+                    </NavLink>
                   </>) : (<>
                   </>)
               }
@@ -168,6 +173,11 @@ const RootLayout = () => {
               }
               {store.loggedIn ? (
                 <>
+                 <NavLink
+                      to="profile"
+                      className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                      Profile
+                    </NavLink>
                   <NavLink
                     to="logout"
                     className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"
@@ -175,11 +185,7 @@ const RootLayout = () => {
                     Logout
                   </NavLink>
 
-                  <NavLink
-                      to="profile"
-                      className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
-                      Profile
-                    </NavLink>
+                 
                 </>
 
               ) : (

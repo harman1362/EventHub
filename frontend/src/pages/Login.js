@@ -2,60 +2,35 @@
 import React, { useState } from "react";
 import './EventCard.css'
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 import authStore from "../store/authStore"
 
 const Login = () => {
-    // const [formData, setFormData] = useState({
-    //     email: '',
-    //     password: ''
-    // });
-    // // const navigate = useNavigate();
-
-    // const handleChange = (e) => {
-
-    //     const { name, value } = e.target;
-    //     setFormData({
-    //         ...formData,
-    //         [name]: value,
-    //     });
-    // };
-
-    // const handleSubmit = (e) => {
-
-    //     e.preventDefault();
-    //     const endpoint = 'http://localhost:2300/login';
-    //     console.log(formData);
-    //     axios
-    //         .post(endpoint, formData)
-    //         .then((response) => {
-    //             console.log("response is : ", response);
-    //             if(response.data.userType == 'admin') {
-    //                 navigate("/admin");
-    //             } else {
-    //                 navigate("/events");
-    //             }
-
-    //             console.log('Request was successful:', response.data);
-    //         })
-
-    //         .catch((error) => {
-    //             console.error('Error:', error);
-    //         });
-
-    // };
-
     // using zustand store
     const store = authStore();
     const navigate = useNavigate();
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            // login check
-            await store.login();
-            navigate("/events");
+            //    signup
+            const response =  await store.login();
+            if(response == -1){
+                toast.error("Please provide both email and password", {
+                });
+            } 
+            else if (response === 1) {
+                // show toast before navigating to new page
+                toast.success("Login Successfull!!", {
+                });
+                navigate("/events")
+            } else {
+                toast.error("Wrong email or password!! Try Again", {
+                });
+            }
         } catch (error) {
-            console.log(error);
+            toast.error("Unsuccessfull!! Try Again", {
+            });
         }
 
     }
@@ -86,7 +61,7 @@ const Login = () => {
                                        value={store.loginForm.password}
                                        onChange={store.updateLoginForm} />
                                 </div>
-                                <div class="flex items-center justify-between">
+                                {/* <div class="flex items-center justify-between">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
                                             <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="" />
@@ -96,10 +71,10 @@ const Login = () => {
                                         </div>
                                     </div>
                                     <a href="#" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
-                                </div>
+                                </div> */}
                                 <button type="submit" class="registerBtn w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                                 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Don’t have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+                                    Don’t have an account yet? <a href="/Register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
                                 </p>
                             </form>
                         </div>

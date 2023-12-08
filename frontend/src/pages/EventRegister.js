@@ -1,15 +1,36 @@
 import React from 'react';
 import './EventRegister.css'
 import EventStore from '../store/eventStore';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function EventRegister() {
   const store = EventStore();
+
+  const createEvent = async (e)=>{
+    e.preventDefault();
+        try {
+            //create Event
+            const response = await store.createEvent();
+            if (response == 200) {
+                // show toast before navigating to new page
+                toast.success("Event created Successfull, sent for approval!!", { 
+                });
+            } else {
+                toast.error("Event creation failed!! Try Again", {
+                });
+            }
+        } catch (error) {
+            toast.error("Unsuccessfull!! Try Again", {
+            });
+        }
+  }
   return (
     <div className='border p-6 w-[50%] m-auto'>
 
       <h2 className='text-center text-3xl text-black font-bold'>Event Registration</h2>
-      <form class="max-w-sm mx-auto">
+      <form class="max-w-sm mx-auto" onSubmit={(e)=> createEvent(e)}>
         <div class="my-5">
           <input type="text" name="eventName"
             value={store.eventFormData.eventName}

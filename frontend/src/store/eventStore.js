@@ -74,7 +74,6 @@ const EventStore = create((set) => ({
       })
   },
     createEvent: async (e) => {
-        e.preventDefault();
         try {
             // get state EventFormDate
             const { eventFormData, events } = EventStore.getState();
@@ -82,7 +81,6 @@ const EventStore = create((set) => ({
             const res = await axios.post('http://localhost:2300/events', eventFormData);
             // clear form fields and
             // set notes with addition of new events with status == 200
-            console.log("new event details are ", res);
             if(res.status === 200 ){
                 set({
                     eventFormData:{
@@ -94,15 +92,13 @@ const EventStore = create((set) => ({
                     },
                     events: [...events, res.data.event]
                 });
-                alert('Event created Successfully,sent for approval!!');
+                return 200;
             }else{
-                alert('Error Creating event');
-                console.log('Error creating new event');
+                return res.status;
             }
             
         } catch (error) {
-            alert('Error Creating event');
-            console.log('Error creating new event', error);
+            return 404;
         }
     },
     handleApproval: async (eventId, status) => {

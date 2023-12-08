@@ -112,11 +112,10 @@ const updateRegisteredEvents = async (req, res) => {
       const { eventId } = req.body;
 
       const currentUser = await User.findById(userId);
-      console.log("event is registed already -----" ,currentUser.registeredEvent.includes(eventId));
       
       if (currentUser.registeredEvent.includes(eventId)) {
         // Event ID already exists in the registered events array
-        return res.status(404).json({ error: 'Event already registered by the user' });
+        return res.status(409).json({ error: 'Event already registered by the user' });
       }
 
       // Update the user's registered events with a specific id
@@ -138,7 +137,7 @@ const updateRegisteredEvents = async (req, res) => {
       const updatedUser = await User.findById(userId);
   
       // Respond with the updated event
-      res.json({ user: updatedUser });
+      res.status(200).json({ user: updatedUser });
     } catch (error) {
       // Handle any unexpected errors
       console.error(error);
@@ -172,7 +171,6 @@ async function fetchRegisteredEvents(req, res) {
   try {
     // Get the user ID from the URL
     const userId = req.params.id;
-    console.log(userId);
 
     // Find the user with the given ID
     const user = await User.findById(userId);
