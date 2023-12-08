@@ -6,8 +6,34 @@ var validateEmail = function(email) {
 };
 
 const userSchema = mongoose.Schema({
-    firstName : String,
-    lastName : String,
+    firstName : {
+        type: String,
+        default: ''
+    },
+    lastName : {
+        type: String,
+        default: ''
+    },
+    address: {
+        type: String,
+        default: ''
+    },
+    contactNumber: {
+        type: String,
+        default: ''
+    },
+    city: {
+        type: String,
+        default: ''
+    },
+    province: {
+        type: String,
+        default: ''
+    },
+    zipCode: {
+        type: String,
+        default: ''
+    },
     email : {
         type: String,
         trim: true,
