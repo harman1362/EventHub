@@ -2,60 +2,35 @@
 import React, { useState } from "react";
 import './EventCard.css'
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 import authStore from "../store/authStore"
 
 const Login = () => {
-    // const [formData, setFormData] = useState({
-    //     email: '',
-    //     password: ''
-    // });
-    // // const navigate = useNavigate();
-
-    // const handleChange = (e) => {
-
-    //     const { name, value } = e.target;
-    //     setFormData({
-    //         ...formData,
-    //         [name]: value,
-    //     });
-    // };
-
-    // const handleSubmit = (e) => {
-
-    //     e.preventDefault();
-    //     const endpoint = 'http://localhost:2300/login';
-    //     console.log(formData);
-    //     axios
-    //         .post(endpoint, formData)
-    //         .then((response) => {
-    //             console.log("response is : ", response);
-    //             if(response.data.userType == 'admin') {
-    //                 navigate("/admin");
-    //             } else {
-    //                 navigate("/events");
-    //             }
-
-    //             console.log('Request was successful:', response.data);
-    //         })
-
-    //         .catch((error) => {
-    //             console.error('Error:', error);
-    //         });
-
-    // };
-
     // using zustand store
     const store = authStore();
     const navigate = useNavigate();
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            // login check
-            await store.login();
-            navigate("/events");
+            //    signup
+            const response =  await store.login();
+            if(response == -1){
+                toast.error("Please provide both email and password", {
+                });
+            } 
+            else if (response === 1) {
+                // show toast before navigating to new page
+                toast.success("Login Successfull!!", {
+                });
+                navigate("/events")
+            } else {
+                toast.error("Wrong email or password!! Try Again", {
+                });
+            }
         } catch (error) {
-            console.log(error);
+            toast.error("Unsuccessfull!! Try Again", {
+            });
         }
 
     }

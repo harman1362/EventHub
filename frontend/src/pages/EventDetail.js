@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import EventStore from '../store/eventStore';
 import authStore from '../store/authStore';
 import banner from './homeBanner.jpg'
+import { toast } from 'react-toastify';
 
 const EventDetail = () => {
   const { eventId } = useParams();
@@ -18,6 +19,22 @@ const EventDetail = () => {
     });
   }, [eventId]);
 
+  const userEventRegister = async (selected_eventId) => {
+    try {
+        // register event
+        const response =  await authstore.userEventRegister(selected_eventId);
+        if (response === 1) {
+            toast.success("Event Register Successfull!!");
+        } else if (response === 0){
+            toast.error("Event already registered!!");
+        }else if (response === -1){
+          toast.error("Unsuccessfull!! Try Again");
+      }
+    } catch (error) {
+        toast.error("Unsuccessfull!! Try Again");
+    }
+
+}
 
   // Fetch event details using eventId and do something with them
   // For simplicity, just displaying the eventId here
@@ -35,7 +52,7 @@ const EventDetail = () => {
                 <p className="mb-8 leading-relaxed font-black">{currentEvent.eventDescription}</p>
                 {
                   authstore.loggedIn && (
-                    <button className="custom-button" onClick={() => authstore.userEventRegister(currentEvent._id)}>Register</button>)
+                    <button className="custom-button" onClick={() => userEventRegister(currentEvent._id)}>Register</button>)
                 }
               </div>
               <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">

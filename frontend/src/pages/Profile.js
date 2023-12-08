@@ -1,24 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import authStore from '../store/authStore';
+import './profile.css'
 
 const Profile = () => {
   const authstore = authStore();
   const [registeredEvents, setRegisteredEvents] = useState(null);
-  const [editedFirstName, setEditedFirstName] = useState(authstore.loggedInUserInfo.firstName);
-  const [editedLastName, setEditedLastName] = useState(authstore.loggedInUserInfo.lastName);
-
 
   useEffect(() => {
-
     authstore.fetchRegisteredEvents().then((userInfo) => {
       setRegisteredEvents(userInfo);
     });
-
-
   }, []);
-
-
+  
   const handleUnsubscribe = (event) => {
     console.log("event clicked is", event);
     console.log("logged in user info", authstore.loggedInUserInfo);
@@ -31,8 +25,8 @@ const Profile = () => {
 
         <div>
           <form>
-            <div class="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900">
-              <div class="rounded-t-lg h-32 overflow-hidden">
+            <div className="max-w-2xl mx-4 sm:max-w-sm md:max-w-sm lg:max-w-sm xl:max-w-sm sm:mx-auto md:mx-auto lg:mx-auto xl:mx-auto mt-16 bg-white shadow-xl rounded-lg text-gray-900">
+              {/* <div class="rounded-t-lg h-32 overflow-hidden">
                 <img class="object-cover object-top w-full" src='https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='Mountain' />
               </div>
               <div class="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
@@ -55,15 +49,40 @@ const Profile = () => {
                     onChange={(e) => setEditedLastName(e.target.value)}
                   />
                 </h2>
-              </div>
-
-              <div class="p-4 border-t mx-8 mt-2">
-                <button class="w-1/2 block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2"
-                  onClick={() => authstore.userUpdate(editedFirstName, editedLastName)}>Update Info</button>
-              </div>
+              </div> */}
             </div>
 
           </form>
+          <div class="profile-container">
+    <h2>Update User Information</h2>
+    <form id="updateForm">
+        <label className='profile-label' for="firstName">First Name:</label>
+        <input className='profile-input' type="text" id="firstName" name="firstName" required />
+
+        <label  className='profile-label'for="lastName">Last Name:</label>
+        <input className='profile-input' type="text" id="lastName" name="lastName" required/>
+
+        <label className='profile-label' for="address">Address:</label>
+        <input className='profile-input' type="text" id="address" name="address"/>
+
+        <label className='profile-label' for="contactNumber">Contact Number:</label>
+        <input className='profile-input' type="tel" id="contactNumber" name="contactNumber"/>
+
+        <label className='profile-label' for="city">City:</label>
+        <input className='profile-input' type="text" id="city" name="city"/>
+
+        <label className='profile-label' for="province">Province:</label>
+        <input className='profile-input' type="text" id="province" name="province"/>
+
+        <label  className='profile-label' for="zipCode">Zip Code:</label>
+        <input className='profile-input' type="text" id="zipCode" name="zipCode"/>
+
+        <div class="p-4 border-t mx-8 mt-2">
+                <button className=" profile-button w-1/2 block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2"
+                  onClick={() => authstore.userUpdate()}>Update Info</button>
+              </div>
+    </form>
+</div>
         </div>
       )}
 

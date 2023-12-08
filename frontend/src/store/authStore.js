@@ -32,36 +32,31 @@ const authStore = create((set) => ({
     },
     login: async () => {
         try {
-          const { loginForm } = authStore.getState();
-          
-          if (!loginForm.email || !loginForm.password) {
-            alert('Please provide both email and password');
-            return;
-          }
-          
-          const response = await axios.post('http://localhost:2300/login', loginForm);
-      
-          if (response.status === 200) {
-            set((state) => ({
-              ...state,
-              loginForm: {
-                email: '',
-                password: '',
-              },
-              loggedIn: true,
-              userType: response.data.userType,
-              userId: response.data._id,
-              loggedInUserInfo: response.data
-            }));
-          } else {
-            alert('Wrong Email or Password');
-          }
+            const { loginForm } = authStore.getState();
+
+            if (!loginForm.email || !loginForm.password) {
+                return -1;
+            }
+            const response = await axios.post('http://localhost:2300/login', loginForm);
+            if (response.status === 200) {
+                set({
+                    loginForm: {
+                        email: '',
+                        password: '',
+                    },
+                    loggedIn: true,
+                    userType: response.data.userType,
+                    userId: response.data._id,
+                    loggedInUserInfo: response.data
+                });
+                return 1;
+            } else {
+                return 0;
+            }
         } catch (error) {
-          console.log(error);
-          alert('Wrong Email or Password');
+            return 0;
         }
-      },
-      
+    },
     // check if session have authorization
     checkAuth: async () => {
         try {
@@ -76,9 +71,10 @@ const authStore = create((set) => ({
     checkAdminAuth: async () => {
         try {
             await axios.get('http://localhost:2300/check-admin-auth');
-            set({ loggedIn: true,
+            set({
+                loggedIn: true,
                 userType: 'admin'
-             });
+            });
 
         } catch (error) {
             set({ loggedIn: false, userType: '' });
@@ -88,11 +84,12 @@ const authStore = create((set) => ({
         try {
             await axios.get('http://localhost:2300/logout');
             // now set the loggedIn state to false
-            set({ loggedIn: false ,
+            set({
+                loggedIn: false,
                 loginForm: {
                     email: '',
                     password: '',
-                    
+
                 },
                 userType: null,
                 userId: null,
@@ -116,81 +113,76 @@ const authStore = create((set) => ({
     signup: async () => {
         // get email and password from state 
         const { signupForm } = authStore.getState();
-
         try {
-            const response  = await axios.post('http://localhost:2300/signup', signupForm);
+            const response = await axios.post('http://localhost:2300/signup', signupForm);
             if (response.status === 200) {
-            // clear the state
-            set({
-                signupForm: {
-                    email: '',
-                    password: '',
-                    userType: '',
-                }
-            });
-            alert("Register Successfull!!");
-            return 1;
-        }else {
-            alert("Email already exist!!");
-            return 0;
-        }
+                // clear the state
+                set({
+                    signupForm: {
+                        email: '',
+                        password: '',
+                        userType: '',
+                    }
+                });
+                return 1;
+            } else {
+                return 0;
+            }
         } catch (error) {
             return 0;
         }
     },
     userEventRegister: async (eventId) => {
-        const {userId} = authStore.getState();
+        const { userId } = authStore.getState();
         try {
-            const response  = await axios.put(`http://localhost:2300/user-event-register/${userId}`, {eventId});
+            const response = await axios.put(`http://localhost:2300/user-event-register/${userId}`, { eventId });
             if (response.status === 200) {
-           
-            alert("Event Register Successfull!!");
-            return 1;
-        }else {
-            alert("Try again!!");
-            return 0;
-        }
+                return 1;
+            }
         } catch (error) {
-            alert("Try again!!");
-            return 0;
+            if (error.message.includes('409')) {
+                return 0
+            } else {
+                return -1;
+            }
         }
     },
     userUpdate: async (...args) => {
-        const {userId} = authStore.getState();
+        const { userId } = authStore.getState();
         let firstName = args[0];
         let lastName = args[1];
         try {
-            
+
             const response = await axios.put(`http://localhost:2300/user-update/${userId}`, {
                 firstName: firstName,
                 lastName: lastName,
             });
             if (response.status === 200) {
-           
-            alert("User updated Successfull!!");
-            return 1;
-        }else {
-            alert("Try again!!");
-            return 0;
-        }
+
+                alert("User updated Successfull!!");
+                return 1;
+            } else {
+                alert("Try again!!");
+                return 0;
+            }
         } catch (error) {
             alert("Try again!!");
             return 0;
         }
     },
     fetchRegisteredEvents: async () => {
-        const {userId} = authStore.getState();
-        
+        const { userId } = authStore.getState();
+
         console.log("userId is  ", userId);
         try {
-            const response  = await axios.get(`http://localhost:2300/user-registered-events/${userId}`);
+            const response = await axios.get(`http://localhost:2300/user-registered-events/${userId}`);
             if (response.status === 200) {
-           
-            return response.data.events;
-        }else {
-            alert("Try again!!");
-            return 0;
-        }
+
+                return response.data.events;
+            } else {
+                alert("Try again!!");
+                return 0;
+            }
         } catch (error) {
             alert("Try again!!");
             return 0;
