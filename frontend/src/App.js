@@ -31,6 +31,7 @@ import RequireAdminAuth from './pages/requireAdminAuth';
 import EventDetail from './pages/EventDetail';
 import Profile from './pages/Profile';
 import AddNewAdmin from './pages/AddNewAdmin';
+import MyEvents from './pages/MyEvents';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,6 +49,7 @@ const router = createBrowserRouter(
         <Route path='add-new-admin' element={ <RequireAdminAuth ><AddNewAdmin /> </RequireAdminAuth>}></Route>
         <Route path="event-detail/:eventId" element={<EventDetail />} />
         <Route path='profile' element={<RequireAuth>  <Profile /> </RequireAuth>}></Route>
+        <Route path='myEvents' element={<RequireAuth>  <MyEvents /> </RequireAuth>}></Route>
       </Route>
       <Route path='*' element={<NotFound />}></Route>
 

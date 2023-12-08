@@ -12,6 +12,15 @@ const authStore = create((set) => ({
         password: '',
         userType: 'user',
     },
+    userUpdateForm: {
+        firstName: '',
+        lastName: '',
+        address: '',
+        contactNumber:'',
+        city:'',
+        province:'',
+        zipCode:''
+    },
     loggedIn: null,
     userType: null,
     userId: null,
@@ -147,37 +156,29 @@ const authStore = create((set) => ({
             }
         }
     },
-    userUpdate: async (...args) => {
-        const { userId } = authStore.getState();
-        let firstName = args[0];
-        let lastName = args[1];
+    userUpdate: async () => {
+        const { userId, userUpdateForm } = authStore.getState();
         try {
-
-            const response = await axios.put(`http://localhost:2300/user-update/${userId}`, {
-                firstName: firstName,
-                lastName: lastName,
-            });
+            
+            const response = await axios.put(`http://localhost:2300/user-update/${userId}`, userUpdateForm);
             if (response.status === 200) {
-
-                alert("User updated Successfull!!");
-                return 1;
+                set({
+                    loggedInUserInfo: response.data.user
+                });
+                return 200;
             } else {
-                alert("Try again!!");
                 return 0;
             }
         } catch (error) {
-            alert("Try again!!");
             return 0;
         }
     },
     fetchRegisteredEvents: async () => {
         const { userId } = authStore.getState();
 
-        console.log("userId is  ", userId);
         try {
             const response = await axios.get(`http://localhost:2300/user-registered-events/${userId}`);
             if (response.status === 200) {
-
                 return response.data.events;
             } else {
                 alert("Try again!!");
@@ -187,7 +188,20 @@ const authStore = create((set) => ({
             alert("Try again!!");
             return 0;
         }
-    }
+    },
+    updateUserUpdateForm: (e) => {
+        // get value and name from event(onChange)
+        const { name, value } = e.target;
+        // set userUpdateForm values in the state
+        set((state) => {
+            return {
+                userUpdateForm: {
+                    ...state.userUpdateForm,
+                    [name]: value,
+                }
+            }
+        })
+    },
 
 }))
 

@@ -30,16 +30,16 @@ async function userUpdate (req, res) {
       const userId = req.params.id;
   
       // Get the updates from the request body
-      const { firstName, lastName } = req.body;
+      const { firstName, lastName, address, contactNumber , city, province , zipCode } = req.body;
 
-      if (!firstName || !lastName) {
-        return res.status(400).json({ error: 'Email, firstName, and lastName are required for update' });
+      if (!firstName || !lastName || !address || !contactNumber || !city || !province || !zipCode) {
+        return res.status(400).json({ error: 'All fields are required for update' });
       }
   
           // Update the user
         const updatedUser = await User.findByIdAndUpdate(
         userId,
-        { firstName, lastName },
+        { firstName, lastName , contactNumber , address , city, province , zipCode  },
         { new: true }
       );
   
@@ -156,7 +156,6 @@ function logout(req, res){
    
 }; 
 
-
 function checkAuth(req, res){
     // user we are getting from middleware after decoding it from cookie
     // console.log(req.user);
@@ -195,6 +194,26 @@ async function fetchRegisteredEvents(req, res) {
 
 }
 
+const fetchLoggedUser =  async (req, res)=>{
+
+  try {
+    // Get the user ID from the URL
+    const userId = req.params.id;
+
+    // Find the user with the given ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    // Respond with the details of events
+    return res.json({ user });
+  } catch (error) {
+    // Handle any unexpected errors
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+}
 module.exports = {
     signup,
     login,
@@ -202,5 +221,6 @@ module.exports = {
     checkAuth, 
     updateRegisteredEvents,
     userUpdate,
-    fetchRegisteredEvents
+    fetchRegisteredEvents,
+    fetchLoggedUser
 }
