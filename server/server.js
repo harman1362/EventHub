@@ -47,6 +47,7 @@ app.get('/check-admin-auth', adminAuth,usersController.checkAuth);
 app.put('/user-update/:id', requireAuth , usersController.userUpdate);
 app.put('/user-event-register/:id', requireAuth ,usersController.updateRegisteredEvents);
 app.get('/user-registered-events/:id', requireAuth ,usersController.fetchRegisteredEvents);
+app.get('/user-organized-events/:id', requireAuth ,usersController.fetchUserOrganziedEvents);
 app.get('/user-profile/:id', requireAuth ,usersController.fetchLoggedUser);
 
 // get all events
