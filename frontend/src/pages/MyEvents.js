@@ -4,18 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 const MyEvents = () => {
   const store = authStore();
-  const [registeredEvents, setRegisteredEvents] = useState(null);
-
   useEffect(() => {
-    const fetchRegisteredEvents = async () => {
-      try {
-        const events = await store.fetchRegisteredEvents();
-        setRegisteredEvents(events);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    fetchRegisteredEvents();
+    store.fetchRegisteredEvents();
     store.fetchUserOrganizedEvents();
   }, []);
 
@@ -30,7 +20,7 @@ const MyEvents = () => {
   return (
     <>
       {
-        registeredEvents && (
+        store.registeredEvents && (
           <>
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
               <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
@@ -48,13 +38,19 @@ const MyEvents = () => {
                   </th>
 
                   <th scope="col" class="px-6 py-3">
-                    Action
+                    Location
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Category
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Date
                   </th>
 
                 </tr>
               </thead>
 
-              {registeredEvents.map((event, index) => (
+              {store.registeredEvents.map((event, index) => (
                 <tbody>
                   <tr key={index} class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-950 whitespace-nowrap dark:text-white">
@@ -64,10 +60,14 @@ const MyEvents = () => {
                     <td class="px-6 py-4" className="text-black">
                       {event.eventDescription}
                     </td>
-                    <td>
-                      <button className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleUnsubscribe(event)}>
-                        Unsubscribe
-                      </button>
+                    <td class="px-6 py-4" className="text-black">
+                      {event.location}
+                    </td>
+                    <td class="px-6 py-4" className="text-black">
+                      {event.category}
+                    </td>
+                    <td class="px-6 py-4" className="text-black">
+                      {new Date(event.date).toISOString().split('T')[0]}
                     </td>
                   </tr>
                 </tbody>
