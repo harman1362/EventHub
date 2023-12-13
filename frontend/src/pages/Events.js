@@ -16,12 +16,9 @@ const Events = () => {
     return (
         <>
             <div className='flex flex-col '>
-                <h1
-                    class="flex font-bold text-4xl text-gray-800 m-auto"
-                >
-                    All Events
-                </h1>
-
+                <header className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-8">
+                    <h1 className="text-4xl font-bold">All Events </h1>
+                </header>
                 <section className='py-8'>
 
                     <form>

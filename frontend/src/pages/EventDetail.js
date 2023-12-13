@@ -21,20 +21,20 @@ const EventDetail = () => {
 
   const userEventRegister = async (selected_eventId) => {
     try {
-        // register event
-        const response =  await authstore.userEventRegister(selected_eventId);
-        if (response === 1) {
-            toast.success("Event Register Successfull!!");
-        } else if (response === 0){
-            toast.error("Event already registered!!");
-        }else if (response === -1){
-          toast.error("Unsuccessfull!! Try Again");
+      // register event
+      const response = await authstore.userEventRegister(selected_eventId);
+      if (response === 1) {
+        toast.success("Event Register Successfull!!");
+      } else if (response === 0) {
+        toast.error("Event already registered!!");
+      } else if (response === -1) {
+        toast.error("Unsuccessfull!! Try Again");
       }
     } catch (error) {
-        toast.error("Unsuccessfull!! Try Again");
+      toast.error("Unsuccessfull!! Try Again");
     }
 
-}
+  }
 
   // Fetch event details using eventId and do something with them
   // For simplicity, just displaying the eventId here
@@ -42,10 +42,14 @@ const EventDetail = () => {
     <>
       {currentEvent && (
         <>
-          <section className="text-gray-600 body-font border p-12">
+
+          <header className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-8">
+            <h1 className="text-4xl font-bold">Event Registration</h1>
+          </header>
+          <section className="text-white body-font border p-12">
             <div className="container mx-auto flex md:flex-row flex-col items-center">
               <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-800">Register For this Event...
+                <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">Register For this Event...
                 </h1>
                 <h1 className='font-gray-800 text-2xl'>{currentEvent.eventName}</h1>
 
@@ -61,6 +65,7 @@ const EventDetail = () => {
             </div>
 
           </section>
+
         </>
       )}
     </>
