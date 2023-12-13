@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './Home.css'
 import EventCard from "./EventCard";
 import axios from 'axios';
+import authStore from '../store/authStore';
 
 const Home = () => {
   const [events, setEvents] = useState([]);
+  const store = authStore();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -21,6 +23,7 @@ const Home = () => {
     };
 
     fetchEvents();
+    console.log(store.userId);
   }, []);
 
   return (

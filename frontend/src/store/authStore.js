@@ -26,6 +26,7 @@ const authStore = create((set) => ({
     userId: null,
     loggedInUserInfo: null,
     userOrganizedEvents: null,
+    registeredEvents: null,
     // functions
     updateLoginForm: (e) => {
         // get value and name from event(onChange)
@@ -180,13 +181,14 @@ const authStore = create((set) => ({
         try {
             const response = await axios.get(`http://localhost:2300/user-registered-events/${userId}`);
             if (response.status === 200) {
-                return response.data.events;
+                set({
+                    registeredEvents: response.data.events
+                });
+                return 0;
             } else {
-                alert("Try again!!");
                 return 0;
             }
         } catch (error) {
-            alert("Try again!!");
             return 0;
         }
     },
@@ -211,7 +213,7 @@ const authStore = create((set) => ({
                 set({
                     userOrganizedEvents: response.data.events
                 });
-                return response.data.events;
+                return 200;
             } else {
                 return 0;
             }
