@@ -167,22 +167,22 @@ const RootLayout = () => {
                       Add Event
                     </NavLink>
 
-                    
-                    
-                    </>) : (<></>)
+
+
+                  </>) : (<></>)
               }
               {store.loggedIn ? (
                 <>
-                 <NavLink
-                      to="profile"
-                      className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
-                      Profile
-                    </NavLink>
-                    <NavLink
-                      to="myEvents"
-                      className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
-                      My Events
-                    </NavLink>
+                  <NavLink
+                    to="profile"
+                    className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                    Profile
+                  </NavLink>
+                  <NavLink
+                    to="myEvents"
+                    className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                    My Events
+                  </NavLink>
                   <NavLink
                     to="logout"
                     className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"
@@ -190,7 +190,7 @@ const RootLayout = () => {
                     Logout
                   </NavLink>
 
-                 
+
                 </>
 
               ) : (
@@ -240,6 +240,7 @@ const RootLayout = () => {
 
         </aside>
 
+
         <main id="content" className="flex-1 md:ml-[30%] lg:ml-[20%] p-12">
           <div className="max-w-7xl">
             <div className="sm:px-0">
@@ -248,7 +249,17 @@ const RootLayout = () => {
           </div>
         </main>
       </div>
+
+
+      <footer class=" body-font flex-1 md:ml-[30%] lg:ml-[19%] ">
+        <div class="container px-5 py-2 mx-auto flex items-center sm:flex-row flex-col text-white bg-gray-900">
+
+          <span class="m-auto  text-white text-sm">&copy; 2023 EventHub. All rights reserved.</span>
+
+        </div>
+      </footer>
     </>
+
   );
 };
 

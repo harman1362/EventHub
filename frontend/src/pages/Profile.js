@@ -4,6 +4,7 @@ import authStore from '../store/authStore';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const Profile = () => {
   const store = authStore();
 
@@ -44,88 +45,124 @@ const Profile = () => {
       {store && store.loggedInUserInfo && (
         <div>
           <div class="profile-container">
-            <h2>Update User Information</h2>
-            <form id="updateForm" onSubmit={(e) => updateUser(e)}>
-              <label className='profile-label' htmlFor="firstName">First Name:</label>
-              <input
-                className='profile-input'
-                type="text"
-                id="firstName"
-                name="firstName"
-                required
-                value={store.userUpdateForm.firstName}
-                onChange={store.updateUserUpdateForm}
-              />
+            <header className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-8">
+              <h1 className="text-4xl font-bold">Update User Info </h1>
+            </header>
+            <form id="updateForm" onSubmit={(e) => updateUser(e)} className="max-w-md mx-auto mt-8">
+              <div className="mb-4">
+                <label className="block  text-sm font-bold mb-2" htmlFor="firstName">
+                  First Name:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  required
+                  value={store.userUpdateForm.firstName}
+                  onChange={store.updateUserUpdateForm}
+                />
+              </div>
 
-              <label className='profile-label' htmlFor="lastName">Last Name:</label>
-              <input
-                className='profile-input'
-                type="text"
-                id="lastName"
-                name="lastName"
-                required
-                value={store.userUpdateForm.lastName}
-                onChange={store.updateUserUpdateForm}
-              />
+              <div className="mb-4">
+                <label className="block  text-sm font-bold mb-2" htmlFor="lastName">
+                  Last Name:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  required
+                  value={store.userUpdateForm.lastName}
+                  onChange={store.updateUserUpdateForm}
+                />
+              </div>
 
-              <label className='profile-label' htmlFor="address">Address:</label>
-              <input
-                className='profile-input'
-                type="text"
-                id="address"
-                name="address"
-                value={store.userUpdateForm.address}
-                onChange={store.updateUserUpdateForm}
-              />
+              <div className="mb-4">
+                <label className="block  text-sm font-bold mb-2" htmlFor="address">
+                  Address:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={store.userUpdateForm.address}
+                  onChange={store.updateUserUpdateForm}
+                />
+              </div>
 
-              <label className='profile-label' htmlFor="contactNumber">Contact Number:</label>
-              <input
-                className='profile-input'
-                type="tel"
-                id="contactNumber"
-                name="contactNumber"
-                value={store.userUpdateForm.contactNumber}
-                onChange={store.updateUserUpdateForm}
-              />
+              <div className="mb-4">
+                <label className="block  text-sm font-bold mb-2" htmlFor="contactNumber">
+                  Contact Number:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="tel"
+                  id="contactNumber"
+                  name="contactNumber"
+                  value={store.userUpdateForm.contactNumber}
+                  onChange={store.updateUserUpdateForm}
+                />
+              </div>
 
-              <label className='profile-label' htmlFor="city">City:</label>
-              <input
-                className='profile-input'
-                type="text"
-                id="city"
-                name="city"
-                value={store.userUpdateForm.city}
-                onChange={store.updateUserUpdateForm}
-              />
+              <div className="mb-4">
+                <label className="block text-sm font-bold mb-2" htmlFor="city">
+                  City:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={store.userUpdateForm.city}
+                  onChange={store.updateUserUpdateForm}
+                />
+              </div>
 
-              <label className='profile-label' htmlFor="province">Province:</label>
-              <input
-                className='profile-input'
-                type="text"
-                id="province"
-                name="province"
-                value={store.userUpdateForm.province}
-                onChange={store.updateUserUpdateForm}
-              />
+              <div className="mb-4">
+                <label className="block  text-sm font-bold mb-2" htmlFor="province">
+                  Province:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  id="province"
+                  name="province"
+                  value={store.userUpdateForm.province}
+                  onChange={store.updateUserUpdateForm}
+                />
+              </div>
 
-              <label className='profile-label' htmlFor="zipCode">Zip Code:</label>
-              <input
-                className='profile-input'
-                type="text"
-                id="zipCode"
-                name="zipCode"
-                value={store.userUpdateForm.zipCode}
-                onChange={store.updateUserUpdateForm}
-              />
-
-              <div class="p-4 border-t mx-8 mt-2">
-                <button className=" profile-button w-1/2 block mx-auto rounded-full bg-gray-900 hover:shadow-lg font-semibold text-white px-6 py-2"
-                  type='submit'>Update Info</button>
+              <div className="mb-4">
+                <label className="block  text-sm font-bold mb-2" htmlFor="zipCode">
+                  Zip Code:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="text"
+                  id="zipCode"
+                  name="zipCode"
+                  value={store.userUpdateForm.zipCode}
+                  onChange={store.updateUserUpdateForm}
+                />
+              </div>
+              <div className="p-4 mx-8 mt-2">
+                <button
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                  type="submit"
+                >
+                  Update Info
+                </button>
               </div>
             </form>
+
           </div>
+
         </div>
       )}
+
 
     </>
   );
