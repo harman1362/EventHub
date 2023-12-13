@@ -214,6 +214,22 @@ const fetchLoggedUser =  async (req, res)=>{
     res.status(500).json({ error: 'An error occurred' });
   }
 }
+const fetchUserOrganziedEvents = async(req ,res) =>{
+  try {
+    const userId = req.params.id;
+    const userEvents = await Event.find({ organizer: userId });
+
+    if (userEvents.length === 0) {
+      res.status(404).json({ error: 'No events found for the specified user ID' });
+    } else {
+      res.status(200).json({ events: userEvents });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+
+}
 module.exports = {
     signup,
     login,
@@ -222,5 +238,6 @@ module.exports = {
     updateRegisteredEvents,
     userUpdate,
     fetchRegisteredEvents,
-    fetchLoggedUser
+    fetchLoggedUser,
+    fetchUserOrganziedEvents
 }
