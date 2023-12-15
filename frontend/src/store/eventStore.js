@@ -123,13 +123,14 @@ const EventStore = create((set) => ({
               events: updatedEvents,
             });
             fetchEvents();
-            alert(`Event ${status}!!!`);
+            return 200;
+            // alert(`Event ${status}!!!`);
           } else {
-            alert('Error updating status');
+            return 0;
           }
         } catch (error) {
           console.log(error);
-          alert('Error updating status');
+         return 0;
         }
       },      
     // deleteNote: async (_id) => {
