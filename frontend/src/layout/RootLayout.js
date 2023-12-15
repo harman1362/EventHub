@@ -166,9 +166,11 @@ const RootLayout = () => {
                       className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
                       Add Event
                     </NavLink>
-
-
-
+                    <NavLink
+                    to="myEvents"
+                    className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
+                    My Events
+                  </NavLink>
                   </>) : (<></>)
               }
               {store.loggedIn ? (
@@ -178,11 +180,7 @@ const RootLayout = () => {
                     className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
                     Profile
                   </NavLink>
-                  <NavLink
-                    to="myEvents"
-                    className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white">
-                    My Events
-                  </NavLink>
+                  
                   <NavLink
                     to="logout"
                     className="flex items-center space-x-2 py-2 px-4 transition duration-200 hover:bg-gray-700 hover:text-white"

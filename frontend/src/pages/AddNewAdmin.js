@@ -1,23 +1,37 @@
 import React, { useEffect } from 'react';
 import authStore from "../store/authStore"
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 function AddNewAdmin() {
     const store = authStore();
     const navigate = useNavigate();
     const handleSignup = async (e) => {
         e.preventDefault();
+        // try {
+        //     //    signup
+        //     const response = await store.signup();
+        //     if (response === 1) {
+        //         // navigate to login page
+        //         navigate('/admin');
+        //     } else {
+        //         alert("Error adding new admin. Might already exist!!")
+        //     }
+        // } catch (error) {
+        //     alert("Error add new admin!!")
+        // }
         try {
-            //    signup
-            const response = await store.signup();
-            if (response === 1) {
-                // navigate to login page
+            const response = await store.signup('admin');
+            if (response == 1) {
+                toast.success("Admin added Successfull!!");
                 navigate('/admin');
             } else {
-                alert("Error adding new admin. Might already exist!!")
+                toast.error("Adding admin failed!! Try Again", {
+                });
             }
         } catch (error) {
-            alert("Error add new admin!!")
+            toast.error("Unsuccessfull!! Try Again", {
+            });
         }
 
     }

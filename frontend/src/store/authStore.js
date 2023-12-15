@@ -121,9 +121,15 @@ const authStore = create((set) => ({
             }
         })
     },
-    signup: async () => {
-        // get email and password from state 
-        const { signupForm } = authStore.getState();
+    signup: async (userType) => { 
+        var { signupForm } = authStore.getState();
+        set({
+            signupForm: {
+                ...signupForm,
+                userType: userType,
+            }
+        });
+        var { signupForm }  = authStore.getState();
         try {
             const response = await axios.post('http://localhost:2300/signup', signupForm);
             if (response.status === 200) {

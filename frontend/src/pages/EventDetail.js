@@ -10,8 +10,6 @@ const EventDetail = () => {
   const [currentEvent, setCurrentEvent] = useState(null);
   const store = EventStore();
   const authstore = authStore();
-
-
   useEffect(() => {
     // Assuming EventStore returns a Promise when fetching the event by ID
     store.fetchEventById(eventId).then((event) => {
@@ -49,13 +47,15 @@ const EventDetail = () => {
           <section className="text-white body-font border p-12">
             <div className="container mx-auto flex md:flex-row flex-col items-center">
               <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-                <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">Register For this Event...
+                <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-white">Register For this Event
                 </h1>
                 <h1 className='font-gray-800 text-2xl'>{currentEvent.eventName}</h1>
-
-                <p className="mb-8 leading-relaxed font-black">{currentEvent.eventDescription}</p>
+                <h3 className=" leading-relaxed font-black">{currentEvent.eventDescription}</h3>
+                <h3 className=" leading-relaxed font-black">Location: {currentEvent.location}</h3>
+                <h3 className="mb-8 leading-relaxed font-black">Date: {new Date(currentEvent.date).toISOString().split('T')[0] }</h3>
                 {
-                  authstore.loggedIn && (
+                  authstore.loggedIn && 
+                  currentEvent.approvalStatus === 'approved' && (
                     <button className="custom-button" onClick={() => userEventRegister(currentEvent._id)}>Register</button>)
                 }
               </div>

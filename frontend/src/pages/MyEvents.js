@@ -120,9 +120,10 @@ const MyEvents = () => {
                       {event.approvalStatus}
                     </td>
                     <td>
-                      <button className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => navigateToEvenDetails(event._id)}>
+                      { event.approvalStatus === 'approved' &&  <button className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => navigateToEvenDetails(event._id)}>
                         Details
-                      </button>
+                      </button> }
+                     
                     </td>
                   </tr>
                 </tbody>

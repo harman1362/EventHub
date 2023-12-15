@@ -1,15 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './AdminEvents.css'
 import EventStore from '../store/eventStore';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AdminEvents() {
     // using zustand store 
     const store = EventStore();
-   // fetch all events once the app is loaded
-   useEffect(() => {
-    store.fetchEvents();
-}, [])
+    // fetch all events once the app is loaded
+    useEffect(() => {
+        store.fetchEvents();
+    }, [])
+
+    const handleApproval = async (eventId, status) => {
+        try {
+
+            const response = await store.handleApproval(eventId, status);
+            if (response == 200) {
+                if (status === 'approved')
+                    toast.success("Event approved Successfull!!");
+                else
+                    toast.success("Event rejected Successfull!!");
+            } else {
+                toast.error("Event approved/reject failed!! Try Again", {
+                });
+            }
+        } catch (error) {
+            toast.error("Unsuccessfull!! Try Again", {
+            });
+        }
+
+    }
     return (
 
         <div>
@@ -62,14 +83,14 @@ function AdminEvents() {
                                     {event.category}
                                 </td>
                                 <td class="px-6 py-4" className="text-black">
-                                    {event.date}
+                                    {new Date(event.date).toISOString().split('T')[0]}
                                 </td>
                                 <td class="px-6 py-4" className="text-black">
                                     {event.approvalStatus}
                                 </td>
                                 <td class="px-6 py-4 text-right">
-                                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onClick={() => store.handleApproval(event._id, 'approved')}>Approve</button>
-                                    <button class="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => store.handleApproval(event._id, 'rejected')}>Reject</button>
+                                    <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" onClick={() => handleApproval(event._id, 'approved')}>Approve</button>
+                                    <button class="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleApproval(event._id, 'rejected')}>Reject</button>
                                 </td>
                             </tr>
                         </tbody>
