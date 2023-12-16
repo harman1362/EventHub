@@ -14,7 +14,7 @@ const Register = () => {
         e.preventDefault();
         try {
             //    signup
-            const response = await store.signup();
+            const response = await store.signup('user');
             if (response === 1) {
                 // show toast before navigating to new page
                 toast.success("Register Successfull!!", { 

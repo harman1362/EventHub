@@ -104,6 +104,8 @@ const authStore = create((set) => ({
                 },
                 userType: null,
                 userId: null,
+                userOrganizedEvents: null,
+                registeredEvents: null,
             });
         } catch (error) {
         }
@@ -213,6 +215,7 @@ const authStore = create((set) => ({
     },
     fetchUserOrganizedEvents: async ()=>{
         const { userId } = authStore.getState();
+        console.log("logged in user is", userId);
         try {
             const response = await axios.get(`http://localhost:2300/user-organized-events/${userId}`);
             if (response.status === 200) {
